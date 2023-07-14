@@ -7,9 +7,10 @@ from copy import deepcopy
 from itertools import chain
 from scipy.sparse import lil_matrix, hstack, vstack, csc_matrix, csr_matrix
 from hetnetpy.hetnet import MetaGraph
-from .parallel import parallel_process
-from . import graph_tools as gt
-from . import matrix_tools as mt
+
+from hetnet_ml.parallel import parallel_process
+from hetnet_ml import graph_tools as gt
+from hetnet_ml import matrix_tools as mt
 
 
 def piecewise_extraction(function, to_split, block_size=1000, axis=0, **params):

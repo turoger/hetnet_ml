@@ -1,4 +1,5 @@
 import random
+import regex
 import pandas as pd
 from collections import OrderedDict
 
@@ -34,29 +35,14 @@ def parse_edge_abbrev(edge_abbrev):
 
     return: tuple of strings, each of the type abbrevatinos in the subeject predicate object triple.
     """
-
-    e_type_abbrev = ''
-    start_abbrev = ''
-    end_abbrev = ''
-
-    start = True
-    for char in edge_abbrev:
-        # Direction is not in abbreviations, skip to next character
-        if char == '>' or char == '<':
-            continue
-
-        # When the abbreviation is in uppercase, abbreviating for node type
-        if char == char.upper():
-            if start:
-                start_abbrev += char
-            else:
-                end_abbrev += char
-
-        # When abbreviation is lowercase, you have the abbreviation for the edge
-        if char == char.lower():
-            # now no longer on the start nodetype, so set to false
-            start = False
-            e_type_abbrev += char
+    # extract the capital characters
+    capital_char_ls = regex.search(pattern = '[A-Z]+', string = edge_abbrev)
+    # first selected characters are the start
+    start_abbrev = capital_char_ls[0]
+    # next selected characters are the end
+    end_abbrev = capital_char_ls[1]
+    # select the lower case characters and special characters '<' and '>'
+    e_type_abbrev = regex.search(pattern = '[a-z<>]+', string = edge_abbrev)
 
     return (start_abbrev, e_type_abbrev, end_abbrev)
 
