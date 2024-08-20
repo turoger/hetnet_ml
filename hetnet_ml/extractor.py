@@ -392,7 +392,7 @@ class MatrixFormattedGraph(object):
         """Internal function to ensure that a given id is either a Node type or a list of node ids."""
         if type(ids) == str:
             return self.metanode_to_ids[ids]
-        elif isinstance(ids, collections.Iterable):
+        elif isinstance(ids, collections.abc.Iterable):
             # String, assume ids
             if type(ids[0]) == str or type(ids[0]) == np.str_:
                 # Ensure all ids belong to metanodes of the same type
@@ -768,8 +768,8 @@ class MatrixFormattedGraph(object):
 
         # Validate the given nodes and get information on nodes needed for processing arguments.
         # IDs could potentially be strings or integers..?
-        assert type(start_node) == str or not isinstance(start_node, collections.Iterable)
-        assert type(end_node) == str or not isinstance(end_node, collections.Iterable)
+        assert type(start_node) == str or not isinstance(start_node, collections.abc.Iterable)
+        assert type(end_node) == str or not isinstance(end_node, collections.abc.Iterable)
         assert self.id_to_metanode[start_node] == self.start_kind
         assert self.id_to_metanode[end_node] == self.end_kind
         start_idx = self.nid_to_index[start_node]
@@ -1169,7 +1169,7 @@ class MatrixFormattedWeightedGraph(MatrixFormattedGraph):
             # Store the column name
             self.weights = weights
 
-        elif isinstance(weights, collections.Iterable):
+        elif isinstance(weights, collections.abc.Iterable):
             # Ensure that there's a weight for every edge
             assert len(weights) == len(self.edge_df)
             # Make sure the weights are numbers
