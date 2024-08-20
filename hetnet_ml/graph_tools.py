@@ -36,7 +36,7 @@ def parse_edge_abbrev(edge_abbrev):
     return: tuple of strings, each of the type abbrevatinos in the subeject predicate object triple.
     """
     # extract the capital characters
-    capital_char_ls = regex.search(pattern = '[A-Z]+', string = edge_abbrev)
+    capital_char_ls = regex.findall(pattern = '[A-Z]+', string = edge_abbrev)
     # first selected characters are the start
     start_abbrev = capital_char_ls[0]
     # next selected characters are the end
