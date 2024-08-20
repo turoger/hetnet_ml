@@ -41,9 +41,9 @@ def parse_edge_abbrev(edge_abbrev):
     start_abbrev = capital_char_ls[0]
     # next selected characters are the end
     end_abbrev = capital_char_ls[1]
-    # select the lower case characters and special characters '<' and '>'
-    e_type_abbrev = regex.findall(pattern = '[a-z<>]+', string = edge_abbrev)
-    e_type_abbrev = e_type_abbrev[-1]
+    # select the lower case characters and don't include special characters '<' and '>'
+    e_type_abbrev = regex.search(pattern="[a-z]+", string=edge_abbrev)
+    e_type_abbrev = e_type_abbrev.group(0)
     return (start_abbrev, e_type_abbrev, end_abbrev)
 
 
